@@ -9,7 +9,7 @@ if (cluster.isMaster) {
 	console.log('我是主进程');
 } else {
 	// console.log('我是子进程');
-	console.log(process.pid);
+	console.log(process.pid);		// 通过process.pid可以得到子进程的号码
 	let server=http.createServer((req,res)=>{
 		res.write('aa');
 		res.end();

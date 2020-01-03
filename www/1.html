@@ -3,9 +3,35 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
-		<script src="./jquery.js"></script>
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
+		<script>
+			$(function (){
+				$('#reg').click(function(){
+					$.ajax({
+						url:'/reg',
+						data:{user:$('#user').val(),pass:$('#pass').val()},
+						dataType:'json',
+						success(json){
+							console.log(json.err,json.msg);
+							if(json.err==0){
+								alert('失败'+json.msg);
+							}else{
+								alert('成功');
+							}
+						},
+						error(err){
+							console.log(err);
+							alert('失败');
+						}
+					});
+				})
+			})
+		</script>
 	</head>
 	<body>
-		<span>1222222sdfadsf222255sdfasdf2222222----23</span>
+		用户名<input type="text" id="user"/><br>
+		密码<input type="text" id="pass"/><br>
+		<input type="button" value="注册" id="reg"/><br>
+		<input type="button" value="登陆" id="login"/><br>
 	</body>
 </html>
