@@ -3,8 +3,18 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
-		<script src=""></script>
+		<script src="http://localhost:8010/socket.io/socket.io.js" charset="UTF-8"></script>
+		<script>
+			let sock=io.connect('ws://localhost:8010');  // 客户端连接一下得到一个sock
+			// 发送
+			sock.emit('aa',12,5,8);
+			// 接收
+			sock.on('t',function(t){
+				console.log(t);
+			})
+		</script>
 	</head>
 	<body>
+		
 	</body>
 </html>

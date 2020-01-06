@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script>
+			// let data=new FormData();
+			// 
+			// data.set('user','nan');
+			// data.append('user','aa');
+			// 
+			// console.log(data);
+			// console.log(data.get('user'));
+			// console.log(data.getAll('user'));
+			
+			window.onload=function(){
+				let user=document.getElementById('user');
+				let pass=document.getElementById('pass');
+				let btn=document.getElementById('btn1');
+				
+				btn.onclick=function(){
+					let data=new FormData();
+					
+					data.set('user',user.value);
+					data.set('pass',pass.value);
+
+					let oAjax=new XMLHttpRequest();
+		
+					// get
+					// let arr=[];
+					// data.forEach((value,key)=>{
+					// 	arr.push(encodeURIComponent(key)+'='+encodeURIComponent(value));
+					// });
+					// oAjax.open('GET','http://localhost:8010/api?'+arr.join('&'),true);
+					// oAjax.send();
+					 
+					// post
+					oAjax.open('GET','http://localhost:8010/api',true);
+					oAjax.send(data);
+					
+					oAjax.onreadystatechange=function(){
+						if(oAjax.readyState==4){
+							if(oAjax.status>=200&&oAjax.status<300||oAjax==304){
+								alert('success');
+							}else{
+								alert('error');
+							}
+						}
+					}
+				}
+			}
+
+
+
+		</script>
+	</head>
+	<body>
+		用户名<input type="text" id="user"><br />
+		密码<input type="text" id="pass"><br />
+		提交<input type="submit" id="btn1" value="提交"><br />
+	</body>
+</html>
+
+<!-- 
+	formdata:
+		set(key,value)   会覆盖,如果我set两次，里面的值以第二次的为准
+		append(key,value)	不会覆盖
+		get(key)=>value
+		delete(key)
+ 
+ -->

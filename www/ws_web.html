@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			#ul1{
+				width: 400px;
+				height: 300px;
+				border: #4DC71F solid 1px;
+			}
+			
+			.me{
+					color: #4DC71F;
+				}
+		</style>
+		<script src="http://localhost:8010/socket.io/socket.io.js"></script>
+		<script>
+			let sock = io.connect('ws://localhost:8010/');
+			sock.on('connect',function(){
+				document.getElementById('err').innerHTML='服务器已连接';
+				console.log('已连接');
+			});
+			sock.on('disconnect',function(){
+				document.getElementById('err').innerHTML='服务器已断开';
+				console.log('已断开');
+			});
+			
+			window.onload=function (){
+				let txt=document.getElementById('txt1');
+				let btn=document.getElementById('btn1');
+				let ultext=document.getElementById('ul1');	
+				btn.onclick=function(){
+					sock.emit('msg',txt.value);
+					let oli=document.createElement('li');
+					oli.innerHTML=txt.value;
+					oli.className='me';
+					ul1.appendChild(oli);
+				}
+				
+				sock.on('msg',str=>{
+					let oli=document.createElement('li');
+					oli.innerHTML=str;
+					ul1.appendChild(oli);
+				})
+			}
+		</script>
+	</head>
+	<body>
+		<h3 id="err"></h3>
+		<ul id="ul1">
+
+		</ul>
+		<textarea rows="4" id="txt1"></textarea>
+		<input type="button" value="发送" id="btn1" />
+	</body>
+</html>
