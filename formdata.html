@@ -17,12 +17,20 @@
 				let user=document.getElementById('user');
 				let pass=document.getElementById('pass');
 				let btn=document.getElementById('btn1');
+				let avatar=document.getElementById('avatar');
 				
 				btn.onclick=function(){
 					let data=new FormData();
 					
 					data.set('user',user.value);
 					data.set('pass',pass.value);
+					
+					Array.from(avatar.files).forEach(file=>{
+						data.append('f1',file);
+					});
+					
+					// data.set('avatar',)
+					
 
 					let oAjax=new XMLHttpRequest();
 		
@@ -35,8 +43,8 @@
 					// oAjax.send();
 					 
 					// post
-					oAjax.open('GET','http://localhost:8010/api',true);
-					oAjax.send(data);
+					oAjax.open('POST','http://localhost:8010/api',true);
+					oAjax.send(data);									// send中的data仅用于post请求
 					
 					oAjax.onreadystatechange=function(){
 						if(oAjax.readyState==4){
@@ -57,6 +65,7 @@
 	<body>
 		用户名<input type="text" id="user"><br />
 		密码<input type="text" id="pass"><br />
+		头像<input type="file" id="avatar" multiple/>
 		提交<input type="submit" id="btn1" value="提交"><br />
 	</body>
 </html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script>
+			window.onload=function(){
+				let user=document.getElementById('user');
+				let pass=document.getElementById('pass');
+				let btn=document.getElementById('btn1');
+				let avatar=document.getElementById('avatar');
+				
+				btn.onclick=function(){
+					let data=new FormData();
+					
+					data.set('user',user.value);
+					data.set('pass',pass.value);
+					
+					let oAjax=new XMLHttpRequest();
+		
+					// get
+					let arr=[];
+					data.forEach((value,key)=>{
+						arr.push(encodeURIComponent(key)+'='+encodeURIComponent(value));
+					});
+					oAjax.open('GET','http://localhost:8010/api?'+arr.join('&'),true);
+					oAjax.send();
+					
+					oAjax.onreadystatechange=function(){
+						if(oAjax.readyState==4){
+							if(oAjax.status>=200&&oAjax.status<300||oAjax==304){
+								alert('success');
+							}else{
+								alert('error');
+							}
+						}
+					}
+				}
+			}
+
+
+
+		</script>
+	</head>
+	<body>
+		用户名<input type="text" id="user"><br />
+		密码<input type="text" id="pass"><br />
+		提交<input type="submit" id="btn1" value="提交"><br />
+	</body>
+</html>
